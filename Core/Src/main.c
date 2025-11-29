@@ -31,6 +31,7 @@
 #include "co/co.h"
 #include "../bsp/can.h"
 #include "digital_inputs.h"
+#include "statemachine.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -713,17 +714,12 @@ on_dn_2000_00(co_sub_t *sub, struct co_sdo_req *req, void *data)
 	if (co_sdo_req_dn_val(req, type, &val, &ac) == -1)
 		return ac;
 
-	// Check if the value is valid.
-/*
-	if (val.u32 != 42) {
-		ac = CO_SDO_AC_PARAM;
-		goto error;
-	}
-*/
-	// TODO: Do something with val.u32.
 	trace("Received SDO 0x2000:0 : val.u32=[%d]",val.u32);
 	// Write the temporary value to the local object dictionary.
 	co_sub_dn(sub, &val);
+
+	run_transition(val.u32);
+	trace("Drive state = %d, Statusword = %X",get_state(),get_statusword_lowbyte(get_state()));
 error:
 	// Finalize the temporary value. This is only necessary to cleanup array
 	// values, but it is a good practice to always include it.
