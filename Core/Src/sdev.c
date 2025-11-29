@@ -197,6 +197,79 @@ const struct co_sdev lpc17xx_sdev = {
 			.pdo_mapping = 0,
 			.flags = 0
 		}}
-	}}
+	},
+	/* Custom Objecs */
+	{
+		.name = CO_SDEV_STRING("Controlword"),
+		.idx = 0x6040,
+		.code = CO_OBJECT_VAR,
+		.nsub = 1,
+		.subs = (const struct co_ssub[]){{
+			.name = CO_SDEV_STRING("Controlword"),
+			.subidx = 0x00,
+			.type = CO_DEFTYPE_UNSIGNED32,
+			.min = { .u32 = CO_UNSIGNED32_MIN },
+			.max = { .u32 = CO_UNSIGNED32_MAX },
+			.def = { .u32 = CO_UNSIGNED32_MIN },
+			.val = { .u32 = CO_UNSIGNED32_MIN },
+			.access = CO_ACCESS_RO,
+			.pdo_mapping = 0,
+			.flags = 0
+		}}
+	},
+	{
+		.name = CO_SDEV_STRING("Statusword"),
+		.idx = 0x6041,
+		.code = CO_OBJECT_VAR,
+		.nsub = 1,
+		.subs = (const struct co_ssub[]){{
+			.name = CO_SDEV_STRING("Statusword"),
+			.subidx = 0x00,
+			.type = CO_DEFTYPE_UNSIGNED32,
+			.min = { .u32 = CO_UNSIGNED32_MIN },
+			.max = { .u32 = CO_UNSIGNED32_MAX },
+			.def = { .u32 = CO_UNSIGNED32_MIN },
+			.val = { .u32 = CO_UNSIGNED32_MIN },
+			.access = CO_ACCESS_RO,
+			.pdo_mapping = 0,
+			.flags = 0
+		}}
+	},
+		{
+		.name = CO_SDEV_STRING("Digital Inputs"),
+		.idx = 0x60FD,
+		.code = CO_OBJECT_VAR,
+		.nsub = 1,
+		.subs = (const struct co_ssub[]){{
+			.name = CO_SDEV_STRING("Digital Inputs"),
+			.subidx = 0x00,
+			.type = CO_DEFTYPE_UNSIGNED32,
+			.min = { .u32 = CO_UNSIGNED32_MIN },
+			.max = { .u32 = CO_UNSIGNED32_MAX },
+			.def = { .u32 = CO_UNSIGNED32_MIN },
+			.val = { .u32 = CO_UNSIGNED32_MIN },
+			.access = CO_ACCESS_RO,
+			.pdo_mapping = 0,
+			.flags = 0
+		}}
+	},
+			{
+		.name = CO_SDEV_STRING("Error History"),
+		.idx = 0x1003,
+		.code = CO_OBJECT_VAR,
+		.nsub = 10,
+		.subs = (const struct co_ssub[]){{
+			.name = CO_SDEV_STRING("Error History"),
+			.subidx = 0x00,
+			.type = CO_DEFTYPE_UNSIGNED32,
+			.min = { .u32 = CO_UNSIGNED32_MIN },
+			.max = { .u32 = CO_UNSIGNED32_MAX },
+			.def = { .u32 = CO_UNSIGNED32_MIN },
+			.val = { .u32 = CO_UNSIGNED32_MIN },
+			.access = CO_ACCESS_RO,
+			.pdo_mapping = 0,
+			.flags = 0
+		}}
+	},
 };
 
