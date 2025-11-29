@@ -1,7 +1,7 @@
-STM32F401RETX_FLASH.ld 
-STM32G474RETX_FLASH.ld 
-STM32G474RETX_RAM.ld
-Lely-CiA402-Tester Debug.launch 
-ulvgl_st7789_demo_g474re Debug.launch
-.settings/
-.metadata/
+Debug/
+.metadata
+*.launch
+*.ld
+com*
+.settings
+doc
