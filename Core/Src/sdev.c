@@ -199,6 +199,7 @@ const struct co_sdev lpc17xx_sdev = {
 		}}
 	},
 	/* Custom Objecs */
+/*
 	{
 		.name = CO_SDEV_STRING("Controlword"),
 		.idx = 0x6040,
@@ -212,7 +213,7 @@ const struct co_sdev lpc17xx_sdev = {
 			.max = { .u32 = CO_UNSIGNED32_MAX },
 			.def = { .u32 = CO_UNSIGNED32_MIN },
 			.val = { .u32 = CO_UNSIGNED32_MIN },
-			.access = CO_ACCESS_RO,
+			.access = CO_ACCESS_RW,
 			.pdo_mapping = 0,
 			.flags = 0
 		}}
@@ -230,7 +231,7 @@ const struct co_sdev lpc17xx_sdev = {
 			.max = { .u32 = CO_UNSIGNED32_MAX },
 			.def = { .u32 = CO_UNSIGNED32_MIN },
 			.val = { .u32 = CO_UNSIGNED32_MIN },
-			.access = CO_ACCESS_RO,
+			.access = CO_ACCESS_RW,
 			.pdo_mapping = 0,
 			.flags = 0
 		}}
@@ -248,7 +249,7 @@ const struct co_sdev lpc17xx_sdev = {
 			.max = { .u32 = CO_UNSIGNED32_MAX },
 			.def = { .u32 = CO_UNSIGNED32_MIN },
 			.val = { .u32 = CO_UNSIGNED32_MIN },
-			.access = CO_ACCESS_RO,
+			.access = CO_ACCESS_RW,
 			.pdo_mapping = 0,
 			.flags = 0
 		}}
@@ -266,10 +267,13 @@ const struct co_sdev lpc17xx_sdev = {
 			.max = { .u32 = CO_UNSIGNED32_MAX },
 			.def = { .u32 = CO_UNSIGNED32_MIN },
 			.val = { .u32 = CO_UNSIGNED32_MIN },
-			.access = CO_ACCESS_RO,
+			.access = CO_ACCESS_RW,
 			.pdo_mapping = 0,
 			.flags = 0
 		}}
 	},
+
+*/
+}
 };
 
