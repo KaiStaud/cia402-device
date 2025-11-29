@@ -41,16 +41,16 @@ typedef enum
     halt = 8,
 }control_bits;
 
-#define SET_BIT(bit) 1<<bit
-#define RESET_BIT(bit) 0<<bit
+#define _SET_BIT(bit) 1<<bit
+#define _RESET_BIT(bit) 0<<bit
 
 typedef enum
 {
-    cmd_shutdown = SET_BIT(enable_voltage) | SET_BIT(quickstop),
-    cmd_switch_on = SET_BIT(switched_on) | SET_BIT(enable_voltage) | SET_BIT(quickstop),
-    cmd_enable_operation =  SET_BIT(enable_operation)| SET_BIT(switched_on) | SET_BIT(enable_voltage) | SET_BIT(quickstop),
-    cmd_disable_operation = RESET_BIT(enable_voltage) | SET_BIT(fault_reset),
-    cmd_reset_fault = SET_BIT(fault_reset) 
+    cmd_shutdown = _SET_BIT(enable_voltage) | _SET_BIT(quickstop),
+    cmd_switch_on = _SET_BIT(switched_on) | _SET_BIT(enable_voltage) | _SET_BIT(quickstop),
+    cmd_enable_operation =  _SET_BIT(enable_operation)| _SET_BIT(switched_on) | _SET_BIT(enable_voltage) | _SET_BIT(quickstop),
+    cmd_disable_operation = _RESET_BIT(enable_voltage) | _SET_BIT(fault_reset),
+    cmd_reset_fault = _SET_BIT(fault_reset)
 }control_commands;
 
 
