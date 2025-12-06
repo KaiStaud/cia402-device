@@ -16,7 +16,7 @@ const struct co_sdev lpc17xx_sdev = {
 	.rate = 0,
 	.lss = 0,
 	.dummy = 0x000000fe,
-	.nobj = 8,
+	.nobj = 14,
 	.objs = (const struct co_sobj[]){{
 		.name = CO_SDEV_STRING("Device type"),
 		.idx = 0x1000,
@@ -199,7 +199,7 @@ const struct co_sdev lpc17xx_sdev = {
 		}}
 	},
 	/* Custom Objecs */
-/*
+
 	{
 		.name = CO_SDEV_STRING("Controlword"),
 		.idx = 0x6040,
@@ -212,7 +212,7 @@ const struct co_sdev lpc17xx_sdev = {
 			.min = { .u32 = CO_UNSIGNED32_MIN },
 			.max = { .u32 = CO_UNSIGNED32_MAX },
 			.def = { .u32 = CO_UNSIGNED32_MIN },
-			.val = { .u32 = CO_UNSIGNED32_MIN },
+			.val = { .u32 = 0x6 },
 			.access = CO_ACCESS_RW,
 			.pdo_mapping = 0,
 			.flags = 0
@@ -236,7 +236,7 @@ const struct co_sdev lpc17xx_sdev = {
 			.flags = 0
 		}}
 	},
-		{
+	{
 		.name = CO_SDEV_STRING("Digital Inputs"),
 		.idx = 0x60FD,
 		.code = CO_OBJECT_VAR,
@@ -254,7 +254,80 @@ const struct co_sdev lpc17xx_sdev = {
 			.flags = 0
 		}}
 	},
-			{
+	{
+		.name = CO_SDEV_STRING("Homing Method"),
+		.idx = 0x6098,
+		.code = CO_OBJECT_VAR,
+		.nsub = 1,
+		.subs = (const struct co_ssub[]){{
+			.name = CO_SDEV_STRING("Homing Method"),
+			.subidx = 0x00,
+			.type = CO_DEFTYPE_UNSIGNED32,
+			.min = { .u32 = CO_UNSIGNED32_MIN },
+			.max = { .u32 = CO_UNSIGNED32_MAX },
+			.def = { .u32 = CO_UNSIGNED32_MIN },
+			.val = { .u32 = CO_UNSIGNED32_MIN },
+			.access = CO_ACCESS_RW,
+			.pdo_mapping = 0,
+			.flags = 0
+		}}
+	},
+	{
+		.name = CO_SDEV_STRING("Home Offset"),
+		.idx = 0x607C,
+		.code = CO_OBJECT_VAR,
+		.nsub = 1,
+		.subs = (const struct co_ssub[]){{
+			.name = CO_SDEV_STRING("Home Offset"),
+			.subidx = 0x00,
+			.type = CO_DEFTYPE_UNSIGNED32,
+			.min = { .u32 = CO_UNSIGNED32_MIN },
+			.max = { .u32 = CO_UNSIGNED32_MAX },
+			.def = { .u32 = CO_UNSIGNED32_MIN },
+			.val = { .u32 = CO_UNSIGNED32_MIN },
+			.access = CO_ACCESS_RW,
+			.pdo_mapping = 0,
+			.flags = 0
+		}}
+	},
+	{
+		.name = CO_SDEV_STRING("Homing Speed"),
+		.idx = 0x6099,
+		.code = CO_OBJECT_VAR,
+		.nsub = 1,
+		.subs = (const struct co_ssub[]){{
+			.name = CO_SDEV_STRING("Homing Speed"),
+			.subidx = 0x00,
+			.type = CO_DEFTYPE_UNSIGNED32,
+			.min = { .u32 = CO_UNSIGNED32_MIN },
+			.max = { .u32 = CO_UNSIGNED32_MAX },
+			.def = { .u32 = CO_UNSIGNED32_MIN },
+			.val = { .u32 = CO_UNSIGNED32_MIN },
+			.access = CO_ACCESS_RW,
+			.pdo_mapping = 0,
+			.flags = 0
+		}}
+	},
+	{
+		.name = CO_SDEV_STRING("Homing Acceleration"),
+		.idx = 0x609A,
+		.code = CO_OBJECT_VAR,
+		.nsub = 1,
+		.subs = (const struct co_ssub[]){{
+			.name = CO_SDEV_STRING("Homing Acceleration"),
+			.subidx = 0x00,
+			.type = CO_DEFTYPE_UNSIGNED32,
+			.min = { .u32 = CO_UNSIGNED32_MIN },
+			.max = { .u32 = CO_UNSIGNED32_MAX },
+			.def = { .u32 = CO_UNSIGNED32_MIN },
+			.val = { .u32 = CO_UNSIGNED32_MIN },
+			.access = CO_ACCESS_RW,
+			.pdo_mapping = 0,
+			.flags = 0
+		}}
+	},
+/*	
+	{
 		.name = CO_SDEV_STRING("Error History"),
 		.idx = 0x1003,
 		.code = CO_OBJECT_VAR,

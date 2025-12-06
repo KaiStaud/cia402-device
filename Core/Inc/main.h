@@ -28,6 +28,7 @@ extern "C" {
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32g4xx_hal.h"
+#include "stm32g4xx_nucleo.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -79,10 +80,6 @@ struct hw_time clock_get_hw_time();
 #define RCC_OSC_IN_GPIO_Port GPIOF
 #define RCC_OSC_OUT_Pin GPIO_PIN_1
 #define RCC_OSC_OUT_GPIO_Port GPIOF
-#define LCD_SCK_Pin GPIO_PIN_5
-#define LCD_SCK_GPIO_Port GPIOA
-#define LCD_SDI_Pin GPIO_PIN_7
-#define LCD_SDI_GPIO_Port GPIOA
 #define LCD_DCX_Pin GPIO_PIN_7
 #define LCD_DCX_GPIO_Port GPIOC
 #define LCD_RESET_Pin GPIO_PIN_9

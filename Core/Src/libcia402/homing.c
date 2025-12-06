@@ -4,12 +4,14 @@ bool homing_active=false;
 homing_parameters params;
 bool set_homing_params(homing_parameters parameters){
 params.dir=parameters.dir;
+return true;
 }
 
 
 bool prepare_for_homing(bool enable)
 {
     homing_active=enable;
+    return true;
 }
 
 enum homing_switch_state get_home_switch(gpio_state* gpio){
