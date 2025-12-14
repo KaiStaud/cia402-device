@@ -62,6 +62,7 @@ TIM_HandleTypeDef htim2;
 TIM_HandleTypeDef htim17;
 
 UART_HandleTypeDef huart2;
+DMA_HandleTypeDef hdma_usart2_rx;
 
 /* USER CODE BEGIN PV */
 //osThreadId LvglTaskHandle;
@@ -72,6 +73,7 @@ UART_HandleTypeDef huart2;
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
+static void MX_DMA_Init(void);
 static void MX_FDCAN1_Init(void);
 static void MX_TIM17_Init(void);
 static void MX_USART2_UART_Init(void);
@@ -119,6 +121,7 @@ struct timespec now = { 0, 0 };
 co_dev_t *dev;
 co_nmt_t *nmt;
 can_net_t *net;
+
 /* USER CODE END 0 */
 
 /**
@@ -150,6 +153,7 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_FDCAN1_Init();
   MX_TIM17_Init();
   MX_USART2_UART_Init();
@@ -205,8 +209,23 @@ int main(void)
 	}
 */
 //	co_tpdo_start(co_tpdo_create(net, dev, 1));
-	HAL_TIM_Base_Start_IT(&htim2);
-	HAL_TIM_OC_Start(&htim2, 1);
+	Start_STDIN();
+//	HAL_TIM_Base_Start_IT(&htim2);
+//	HAL_TIM_OC_Start(&htim2, 1);
+	trace("Press PB1 to continue to start CanOpen loop");
+	trace("Sending dummy data [7F 12 34");
+	while(!HAL_GPIO_ReadPin(B1_GPIO_Port, B1_Pin))
+	{
+		struct can_msg msg;
+		msg.len=2;
+		msg.data[1]=0x12;
+		msg.data[2]=0x34;
+		can_send(&msg, 3);
+		HAL_Delay(500);
+		// Disable Interrupt an poll can rx buffer
+	}
+
+//	can_send(&msg, 1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -253,6 +272,8 @@ int main(void)
 		{
 				can_net_recv(net, &msg);
 		}
+//		HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_11);
+//		HAL_Delay(250);
 		// TODO: Update object dictionary.
 
     /* USER CODE END WHILE */
@@ -330,7 +351,7 @@ static void MX_FDCAN1_Init(void)
   hfdcan1.Instance = FDCAN1;
   hfdcan1.Init.ClockDivider = FDCAN_CLOCK_DIV1;
   hfdcan1.Init.FrameFormat = FDCAN_FRAME_CLASSIC;
-  hfdcan1.Init.Mode = FDCAN_MODE_EXTERNAL_LOOPBACK;
+  hfdcan1.Init.Mode = FDCAN_FRAME_CLASSIC;
   hfdcan1.Init.AutoRetransmission = DISABLE;
   hfdcan1.Init.TransmitPause = DISABLE;
   hfdcan1.Init.ProtocolException = DISABLE;
@@ -481,7 +502,7 @@ static void MX_TIM2_Init(void)
 
   /* USER CODE END TIM2_Init 1 */
   htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 84000;
+  htim2.Init.Prescaler = 84;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
   htim2.Init.Period = 1000;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
@@ -596,6 +617,23 @@ static void MX_USART2_UART_Init(void)
   /* USER CODE BEGIN USART2_Init 2 */
 
   /* USER CODE END USART2_Init 2 */
+
+}
+
+/**
+  * Enable DMA controller clock
+  */
+static void MX_DMA_Init(void)
+{
+
+  /* DMA controller clock enable */
+  __HAL_RCC_DMAMUX1_CLK_ENABLE();
+  __HAL_RCC_DMA1_CLK_ENABLE();
+
+  /* DMA interrupt init */
+  /* DMA1_Channel1_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Channel1_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Channel1_IRQn);
 
 }
 
@@ -814,9 +852,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   if (htim->Instance == TIM16) {
     HAL_IncTick();
   }
-  /* USER CODE BEGIN Callback 1 */
-  /* USER CODE END Callback 1 */
 }
+  /* USER CODE BEGIN Callback 1 */
+
+  /* USER CODE END Callback 1 */
 
 /**
   * @brief  This function is executed in case of error occurrence.
