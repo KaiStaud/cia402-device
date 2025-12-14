@@ -16,7 +16,7 @@ const struct co_sdev lpc17xx_sdev = {
 	.rate = 0,
 	.lss = 0,
 	.dummy = 0x000000fe,
-	.nobj = 14,
+	.nobj = 15,
 	.objs = (const struct co_sobj[]){{
 		.name = CO_SDEV_STRING("Device type"),
 		.idx = 0x1000,
@@ -68,7 +68,38 @@ const struct co_sdev lpc17xx_sdev = {
 			.pdo_mapping = 0,
 			.flags = 0
 		}}
-	}, {
+	},
+
+	{
+			.name = CO_SDEV_STRING("Consumer heartbeat time"),
+			.idx = 0x1016,
+			.code = CO_OBJECT_ARRAY,
+			.nsub = 2,
+			.subs = (const struct co_ssub[]){{
+				.name = CO_SDEV_STRING("NrOfObjects"),
+				.subidx = 0x00,
+				.type = CO_DEFTYPE_UNSIGNED8,
+				.min = { .u8 = CO_UNSIGNED8_MIN },
+				.max = { .u8 = CO_UNSIGNED8_MAX },
+				.def = { .u8 = 0x01 },
+				.val = { .u8 = 0x01 },
+				.access = CO_ACCESS_RO,
+				.pdo_mapping = 0,
+				.flags = 0
+			}, {
+				.name = CO_SDEV_STRING("Consumer heartbeat time1"),
+				.subidx = 0x01,
+				.type = CO_DEFTYPE_UNSIGNED32,
+				.min = { .u32 = CO_UNSIGNED32_MIN },
+				.max = { .u32 = CO_UNSIGNED32_MAX },
+				.def = { .u32 = CO_UNSIGNED32_MIN },
+				.val = { .u32 = CO_UNSIGNED32_MIN },
+				.access = CO_ACCESS_RW,
+				.pdo_mapping = 0,
+				.flags = 0
+			}}
+		},
+	{
 		.name = CO_SDEV_STRING("Producer heartbeat time"),
 		.idx = 0x1017,
 		.code = CO_OBJECT_VAR,
